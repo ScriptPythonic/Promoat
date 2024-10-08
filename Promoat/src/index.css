@@ -1,68 +1,113 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+*{
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+body{
+    font-family: "Lexend Giga", sans-serif;
 }
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+.bg-home{
+    background: url('./assets/bg-pics.png');
+    background-size: cover;
+    background-position: center;
+    height: 100vh; /* Full screen height */
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@keyframes glow {
+    0% {
+      box-shadow: 0 0 5px #f49b0d, 0 0 10px #f49b0d, 0 0 15px #f49b0d;
+    }
+    50% {
+      box-shadow: 0 0 15px #f49b0d, 0 0 25px #f49b0d, 0 0 35px #f49b0d;
+    }
+    100% {
+      box-shadow: 0 0 5px #f49b0d, 0 0 10px #f49b0d, 0 0 15px #f49b0d;
+    }
   }
-  a:hover {
-    color: #747bff;
+  
+  /* Web3 Button Styles */
+  .web3-btn {
+    background-color: transparent;
+    color: #f49b0d;
+    border: 2px solid #f49b0d;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease-in-out;
+    animation: glow 1.5s infinite alternate; /* Apply glow animation by default */
   }
+  
+  /* Add glowing effect on hover and focus */
+  .web3-btn::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background-color: #f49b0d;
+    transition: all 0.4s ease-in-out;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    z-index: 0;
+  }
+  
+  .web3-btn:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  
+  .web3-btn:hover {
+    color: white;
+    box-shadow: 0 0 5px #f49b0d, 0 0 10px #f49b0d, 0 0 15px #f49b0d;
+    animation: glow 1.5s infinite alternate; /* Intensify glow effect on hover */
+  }
+  
+  .web3-btn:hover {
+    transform: scale(1.1);
+  }
+  
   button {
-    background-color: #f9f9f9;
+    cursor: pointer;
   }
-}
+
+  @keyframes popupAnim {
+    0% {
+      transform: translateY(100%); /* Start from below the screen */
+    }
+    100% {
+      transform: translateY(0); /* End at the center */
+    }
+  }
+  
+  /* Styling for the popup modal */
+  .popup-modal {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Remove border, set reduced border-radius, and center the text */
+  .popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 4px; /* Reduced border-radius */
+    width: 90%;
+    max-width: 400px;
+    animation: popupAnim 0.5s ease-out;
+    text-align: center; /* Center text */
+    border: none; /* Remove white border */
+  }
+  
