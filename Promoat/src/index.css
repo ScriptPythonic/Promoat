@@ -4,7 +4,6 @@
 
 
 *{
-    background-color: black;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -12,6 +11,7 @@
 
 body{
     font-family: "Lexend Giga", sans-serif;
+    background-color: black;
 }
 .bg-home{
     background: url('./assets/bg-pics.png');
@@ -98,6 +98,8 @@ body{
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
   }
+
+  
   
   /* Remove border, set reduced border-radius, and center the text */
   .popup-content {
