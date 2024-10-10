@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom';
 import Overlay from '../Hook/createOverlay';
+import Header from '../Hook/header';
 
 function Home() {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
@@ -14,19 +15,7 @@ function Home() {
   return (
     <main className="bg-home bg-black h-screen">
       {/* Header */}
-      <header className="flex justify-between items-center p-4 sm:p-6 md:p-8">
-        {/* Company Name */}
-        <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white">
-          PROMO<span style={{ color: '#F49B0D' }}>A</span>T
-        </div>
-
-        {/* Sign In Button */}
-        <button
-          className="web3-btn px-3 py-2 sm:px-4 sm:py-3 md:px-6 md:py-3 rounded-lg hover:bg-white hover:text-[#F49B0D] transition"
-        >
-          Sign In
-        </button>
-      </header>
+      <Header />
 
       {/* Main Content */}
       <div className="text-center text-white px-4 sm:px-8 md:px-12 mt-16 sm:mt-20 md:mt-24">
@@ -48,7 +37,7 @@ function Home() {
           {/* Create Promotion Button */}
           <button
             className="web3-btn px-5 py-3 sm:px-6 sm:py-4 rounded-lg text-lg sm:text-xl font-bold w-full sm:w-auto"
-            onClick={openPopup} 
+            onClick={openPopup}
           >
             Create Promotion
           </button>

@@ -112,4 +112,38 @@ body{
     text-align: center; /* Center text */
     border: none; /* Remove white border */
   }
+
+/* can still later clear this style  */
+  .connect-btn {
+    background-color: #f49b0d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .connect-btn:hover {
+    background-color: #d87c06;
+  }
+  
+  .disconnect-btn {
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .disconnect-btn:hover {
+    background-color: darkred;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
   
