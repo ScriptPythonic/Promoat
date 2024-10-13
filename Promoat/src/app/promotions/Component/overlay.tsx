@@ -1,29 +1,12 @@
-import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 
-interface NewOverlayProps {
-  closePopup: () => void;
-  isConnected: boolean;
-  walletAddress: string | null; // Add wallet address prop
-}
-
-const NewOverlay: React.FC<NewOverlayProps> = ({ closePopup, isConnected, walletAddress }) => {
+const NewOverlay: React.FC<{ closePopup: () => void }> = ({ closePopup }) => {
   const [address, setAddress] = useState<string>('');
   const [promotionLink, setPromotionLink] = useState<string>('');
   const [additionalNotes, setAdditionalNotes] = useState<string>('');
 
-  // Automatically set wallet address if the user is connected
-  useEffect(() => {
-    if (isConnected && walletAddress) {
-      setAddress(walletAddress);
-    } else {
-      setAddress(''); // Clear address if not connected
-    }
-  }, [isConnected, walletAddress]);
-
   const handleAddressChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    if (!isConnected) {
-      setAddress(event.target.value); // Allow input only if not connected
-    }
+    setAddress(event.target.value);
   };
 
   const handlePromotionLinkChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -74,10 +57,8 @@ const NewOverlay: React.FC<NewOverlayProps> = ({ closePopup, isConnected, wallet
                 placeholder="Enter Address"
                 value={address}
                 onChange={handleAddressChange}
-                disabled={isConnected} // Disable input if connected
-                className={`w-full p-2 mt-1 border ${isConnected ? 'bg-gray-800' : 'bg-gray-600'} border-gray-300 rounded-sm text-sm text-white`}
+                className="w-full p-2 mt-1 border border-gray-300 rounded-sm text-sm bg-gray-600"
               />
-              {isConnected && <p className="text-xs text-gray-500 mt-1">Wallet address is auto-filled because your wallet is connected.</p>}
             </div>
 
             {/* Promotion Link */}

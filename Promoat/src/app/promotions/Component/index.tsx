@@ -1,17 +1,11 @@
 'use client';
-
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Header from '@/components/header';
 import NewOverlay from './overlay';
 
-interface FindPromotionProps {
-  isConnected: boolean;
-  walletAddress: string | null;
-}
-
-const FindPromotion: React.FC<FindPromotionProps> = ({ isConnected, walletAddress }) => {
+const FindPromotion = () => {
   const [isOverlayVisible, setIsOverlayVisible] = useState<boolean>(false);
 
   // Function to toggle overlay visibility
@@ -21,7 +15,7 @@ const FindPromotion: React.FC<FindPromotionProps> = ({ isConnected, walletAddres
   return (
     <main className="bg-black min-h-screen">
       {/* Header */}
-      <Header account={walletAddress} isConnected={isConnected} />
+      <Header />
 
       {/* Promotion Cards */}
       <section className="md:p-6 p-2">
@@ -93,13 +87,7 @@ const FindPromotion: React.FC<FindPromotionProps> = ({ isConnected, walletAddres
       </section>
 
       {/* Overlay Component */}
-      {isOverlayVisible && (
-        <NewOverlay
-          closePopup={closeOverlay}
-          isConnected={isConnected}
-          walletAddress={walletAddress}
-        />
-      )}
+      {isOverlayVisible && <NewOverlay closePopup={closeOverlay} />}
     </main>
   );
 };
