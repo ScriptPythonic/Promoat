@@ -15,7 +15,7 @@ const FindPromotion = () => {
   return (
     <main className="bg-black min-h-screen">
       {/* Header */}
-      <Header />
+      <Header account={null} isConnected={false} />
 
       {/* Promotion Cards */}
       <section className="md:p-6 p-2">
