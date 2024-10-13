@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* i believe this is necessary because 
+of a div added by rainbowkit provider */
+body > div {
+  height: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: "Lexend Giga", sans-serif;
+  background-color: black;
+}
+.bg-home{
+  /* background: url('./assets/bg-pics.png');  */
+  background-size: cover;
+  background-position: center;
+  height: 100vh; /* Full screen height */
+}
+
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px #f49b0d, 0 0 10px #f49b0d, 0 0 15px #f49b0d;
+  }
+  50% {
+    box-shadow: 0 0 15px #f49b0d, 0 0 25px #f49b0d, 0 0 35px #f49b0d;
+  }
+  100% {
+    box-shadow: 0 0 5px #f49b0d, 0 0 10px #f49b0d, 0 0 15px #f49b0d;
+  }
+}
+
+/* Web3 Button Styles */
+.web3-btn {
+  background-color: transparent;
+  color: #f49b0d;
+  border: 2px solid #f49b0d;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease-in-out;
+  animation: glow 1.5s infinite alternate; /* Apply glow animation by default */
+}
+
+/* Add glowing effect on hover and focus */
+.web3-btn::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300%;
+  height: 300%;
+  background-color: #f49b0d;
+  transition: all 0.4s ease-in-out;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  z-index: 0;
+}
+
+.web3-btn:hover::before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.web3-btn:hover {
+  color: white;
+  box-shadow: 0 0 5px #f49b0d, 0 0 10px #f49b0d, 0 0 15px #f49b0d;
+  animation: glow 1.5s infinite alternate; /* Intensify glow effect on hover */
+}
+
+.web3-btn:hover {
+  transform: scale(1.1);
+}
+
+button {
+  cursor: pointer;
+}
+
+@keyframes popupAnim {
+  0% {
+    transform: translateY(100%); /* Start from below the screen */
+  }
+  100% {
+    transform: translateY(0); /* End at the center */
+  }
+}
+
+/* Styling for the popup modal */
+.popup-modal {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+
+/* Remove border, set reduced border-radius, and center the text */
+.popup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 4px; /* Reduced border-radius */
+  width: 90%;
+  max-width: 400px;
+  animation: popupAnim 0.5s ease-out;
+  text-align: center; /* Center text */
+  border: none; /* Remove white border */
+}
+
+/* can still later clear this style  */
+.connect-btn {
+  background-color: #f49b0d;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.connect-btn:hover {
+  background-color: #d87c06;
+}
+
+.disconnect-btn {
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.disconnect-btn:hover {
+  background-color: darkred;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
