@@ -4,7 +4,10 @@ import FindPromotion from './Component';
 
 const PromotionsPage = () => {
   return (
-    <FindPromotion />
+    <div>
+      <FindPromotion />
+    </div>
+    
   );
 };
 
