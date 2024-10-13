@@ -1,20 +1,11 @@
-// Overlay.tsx
 'use client';
 
 import { useState, useCallback } from 'react';
-// import { Avatar, Name } from '@coinbase/onchainkit/identity';
-import { 
-  Transaction, 
-  TransactionButton, 
-  TransactionSponsor,
-  TransactionStatus, 
-  TransactionStatusLabel, 
-  TransactionStatusAction 
-} from '@coinbase/onchainkit/transaction';
-// import { Wallet, ConnectWallet } from '@coinbase/onchainkit/wallet';
+import { Transaction, TransactionButton, TransactionStatus, TransactionStatusLabel, TransactionStatusAction } from '@coinbase/onchainkit/transaction';
+import type { TransactionError, TransactionResponse } from '@coinbase/onchainkit/transaction';
 import { useAccount } from 'wagmi';
+import { BASE_SEPOLIA_CHAIN_ID, mintContractAddress, ABI } from '@/constant'; // Update paths if necessary
 import countries from './country.json';
-import { BASE_SEPOLIA_CHAIN_ID, mintContractAddress, ABI } from '@/constant';
 
 interface OverlayProps {
   closePopup: () => void;
@@ -31,6 +22,9 @@ const Overlay: React.FC<OverlayProps> = ({ closePopup, isSignedIn }) => {
   const [industry, setIndustry] = useState<string>('');
   const [influencers, setInfluencers] = useState<string>('');
   const [totalAmount, setTotalAmount] = useState<number>(0);
+  const [transactionSuccessful, setTransactionSuccessful] = useState<boolean>(false);
+
+  console.log(address)
 
   // Handle total amount calculation based on price pool and number of influencers
   const handleTotalAmountChange = (price: string, influencersCount: string) => {
@@ -73,21 +67,41 @@ const Overlay: React.FC<OverlayProps> = ({ closePopup, isSignedIn }) => {
     alert('Promotion created successfully!');
   };
 
-  const handleTransactionStatus = useCallback((status: LifecycleStatus) => {
-    console.log('Transaction Lifecycle Status:', status);
-    if (status === 'Success') {
-      alert('Transaction was successful!');
-      // Additional logic after success (e.g., closing popup, updating UI, etc.)
+  const handleTransactionError = (err: TransactionError) => {
+    console.error('Transaction error:', err);
+    setTransactionSuccessful(false);  // Set to false if transaction fails
+  };
+
+  const handleTransactionSuccess = (response: TransactionResponse) => {
+    console.log('Transaction successful:', response);
+    alert('Transaction was successful!');
+    setTransactionSuccessful(true);  // Set to true if transaction succeeds
+  };
+
+  const handleClosePopup = useCallback(() => {
+    if (transactionSuccessful) {
+      // Only clear the form if the transaction is successful
       closePopup();
-    } else if (status === 'Failure') {
-      alert('Transaction failed. Please try again.');
+    } else {
+      // If transaction is not successful, retain the state
+      closePopup();
     }
-  }, [closePopup]);
+  }, [transactionSuccessful, closePopup]);
+
+  // Transaction parameters
+  const contracts = [
+    {
+      address: mintContractAddress,
+      abi: ABI,
+      functionName: 'publishPromotion',
+      args: [address],
+    },
+  ];
 
   return (
     <div
       className="fixed inset-0 backdrop-blur-xl bg-black bg-opacity-50 flex justify-center items-center"
-      onClick={closePopup}
+      onClick={handleClosePopup}
     >
       <div
         className="bg-black p-4 rounded-lg shadow-xl w-full sm:w-80 md:w-96 lg:w-1/3 max-w-md transform transition-all duration-500 ease-out"
@@ -96,7 +110,7 @@ const Overlay: React.FC<OverlayProps> = ({ closePopup, isSignedIn }) => {
         <div className="relative">
           <button
             type="button"
-            onClick={closePopup}
+            onClick={handleClosePopup}
             className="absolute top-0 right-0 text-xl text-white font-sm"
           >
             ×
@@ -203,17 +217,12 @@ const Overlay: React.FC<OverlayProps> = ({ closePopup, isSignedIn }) => {
             {/* Publish Promotion Button */}
             <div className="mt-4 flex justify-center items-center">
               <Transaction
+                contracts={contracts}
                 chainId={BASE_SEPOLIA_CHAIN_ID}
-                contracts={[
-                  {
-                    address: mintContractAddress,
-                    abi: ABI
-                  }
-                ]}
-                onStatus={handleTransactionStatus}
+                onError={handleTransactionError}
+                onSuccess={handleTransactionSuccess}
               >
-                <TransactionButton />
-                <TransactionSponsor />
+                <TransactionButton className="mt-0 mr-auto ml-auto w-[450px] max-w-full text-[white]" />
                 <TransactionStatus>
                   <TransactionStatusLabel />
                   <TransactionStatusAction />
