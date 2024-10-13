@@ -15,10 +15,10 @@ const queryClient = new QueryClient();
 
 function OnchainProviders({ children }: Props) {
   const wagmiConfig = useWagmiConfig();
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // RainbowKit theme selection (dark or light)
-  const selectedTheme = darkTheme();  
+  const selectedTheme = darkTheme();
 
   // Toggle modal visibility
   const toggleModal = () => setIsModalOpen(!isModalOpen);
@@ -27,13 +27,13 @@ function OnchainProviders({ children }: Props) {
     <WagmiProvider config={wagmiConfig}>
       <QueryClientProvider client={queryClient}>
         <OnchainKitProvider apiKey={NEXT_PUBLIC_CDP_API_KEY} chain={base}>
-          <RainbowKitProvider theme={selectedTheme} modalStyles={{ padding: '1rem', borderRadius: '8px' }}>
+          <RainbowKitProvider theme={selectedTheme}>
             <div className="relative min-h-screen flex flex-col items-center justify-center">
               {/* Conditionally render the overlay only when it's open */}
               {isModalOpen && (
                 <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
                   {/* Modal box */}
-                  <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
+                  <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full custom-modal">
                     <h2 className="text-xl font-semibold mb-4 text-center">Connect Your Wallet</h2>
                     <button
                       onClick={toggleModal} // Close the modal when clicked

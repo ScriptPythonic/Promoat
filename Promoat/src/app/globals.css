@@ -52,6 +52,11 @@ body{
   height: 100vh; /* Full screen height */
 }
 
+.custom-modal {
+  padding: 1rem;
+  border-radius: 8px;
+}
+
 
 @keyframes glow {
   0% {
