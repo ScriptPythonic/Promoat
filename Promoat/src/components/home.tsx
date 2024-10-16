@@ -1,12 +1,13 @@
 'use client';
-
-import React, { useState } from 'react'; // Add explicit import for React
-import Link from 'next/link';
-import Overlay from './createOverlay';
+import React, { useState } from 'react'; 
+import Link from 'next/link'; 
+import Overlay from './createOverlay'; 
 import Header from './header';
+import { useAccount } from 'wagmi';  // Assuming wagmi for wallet connection
 
 const Homes: React.FC = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const { isConnected } = useAccount();  // Get the connection status
 
   // Function to open the popup
   const openPopup = () => {
@@ -58,7 +59,7 @@ const Homes: React.FC = () => {
       </div>
 
       {/* Popup Modal */}
-      {isPopupVisible && <Overlay closePopup={closePopup} />}
+      {isPopupVisible && <Overlay closePopup={closePopup} isSignedIn={isConnected} />}
     </main>
   );
 };
