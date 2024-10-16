@@ -91,9 +91,9 @@ const Overlay: React.FC<OverlayProps> = ({ closePopup, isSignedIn }) => {
   // Transaction parameters
   const contracts = [
     {
-      address: mintContractAddress,
+      address: mintContractAddress as `0x${string}`,
       abi: ABI,
-      functionName: 'publishPromotion',
+      functionName: 'createPromotion',
       args: [address],
     },
   ];

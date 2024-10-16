@@ -605,4 +605,4 @@ export const ABI = [
 		"stateMutability": "view",
 		"type": "function"
 	}
-]
+] as const;
